@@ -31,6 +31,7 @@
     "typings": "^2.1.1"
   },
   "dependencies": {
+    "ethereumjs-abi": "^0.6.5",
     "ethereumjs-util": "^5.1.2",
     "ipfs-api": "^15.1.0",
     "tslib": "^1.8.1",
