@@ -7,11 +7,46 @@ let accounts = [];
 let payer = '';
 let payee = '';
 let currentNumRequest = '';
+let requestID;
+let paymentAmount = '';
+
+const payRequest = async (requestID) => {
+    const result = await rn.requestEthereumService.paymentAction(
+        requestID,
+        1500,
+        0,
+        {from: payer}
+    ).on('broadcasted', (data) => {
+        console.log(data.transaction.hash);
+    });
+    console.log(result);
+    console.log('Request has been paid...');
+    // Check account balances of the ones we've used.
+    const payerBalance = await web3.eth.getBalance(payer);
+    const payeeBalance = await web3.eth.getBalance(payee);
+    console.log('Payer Balance: ' + payerBalance);
+    console.log('Payee Balance: ' + payeeBalance);
+};
+
+const acceptRequest = async (requestID) => {
+    console.log('REQUESTID' + requestID);
+    const result = await rn.requestEthereumService.accept(
+        requestID,
+        {from: payer}
+    ).on('broadcasted', (data) => {
+        console.log(data.transaction.hash);
+    });
+    console.log('Request ID: ' + requestID + ' has been accepted, now calling payable function...');
+    payRequest(requestID).catch((error) => {
+        console.log(error);
+    });
+};
 
 const createRequest = async () => {
+    paymentAmount = 1500;
     const result = await rn.requestEthereumService.createRequestAsPayee(
         payer,
-        1500,
+        paymentAmount,
         '{"reason": "Freelance work"}',
         '',
         [],
@@ -19,9 +54,12 @@ const createRequest = async () => {
     ).on('broadcasted', (data) => {
         console.log(data.transaction.hash);
     });
-    console.log(result);
     currentNumRequest = await rn.requestCoreService.getCurrentNumRequest();
     console.log('There are currently ' + currentNumRequest + ' active Requests');
+    requestID = result.request.requestId;
+    acceptRequest(requestID).catch((error) => {
+        console.log(error);
+    });
 };
 
 const mainAsync = async () => {
