@@ -427,6 +427,7 @@ ABI.stringify = function (types, values) {
 ABI.toSolidityBytes32 = function(type, value) {
     type = elementaryName(type);
     var ret = []
+    var size;
     if (type === 'bytes') {
       ret.push(utils.setLengthRight(value, 32))
     } else if (type === 'bool') {
