@@ -8,6 +8,7 @@
     "ethereum"
   ],
   "scripts": {
+    "main": "babel-node --presets es2015,stage-2 main.js",
     "clean": "rm -rf ./dist",
     "build": "npm run clean && tsc && cp -r ./src/artifacts ./dist/src/ && cp ./src/*.json ./dist/src/ && cp -r ./src/lib ./dist/src/",
     "lint": "tslint --project tsconfig.json -c tslint.json",
@@ -22,6 +23,9 @@
     "@types/chai": "^4.0.5",
     "@types/mocha": "^2.2.44",
     "@types/node": "^8.0.53",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "dirty-chai": "^2.0.1",
@@ -33,6 +37,7 @@
   "dependencies": {
     "ethereumjs-abi": "^0.6.5",
     "ethereumjs-util": "^5.1.2",
+    "ethjs": "^0.3.3",
     "ipfs-api": "^15.1.0",
     "tslib": "^1.8.1",
     "web3": "^1.0.0-beta.26"
