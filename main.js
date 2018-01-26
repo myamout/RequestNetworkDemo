@@ -66,8 +66,10 @@ const mainAsync = async () => {
     try {
         // Get accounts active on Ganache
         accounts = await web3.eth.getAccounts();
-        payer = accounts[2].toLowerCase();
-        payee = accounts[3].toLowerCase();
+        payer = accounts[1].toLowerCase();
+        payee = accounts[2].toLowerCase();
+        console.log(web3.eth.getBalance(payer));
+        console.log(web3.eth.getBalance(payee));
         currentNumRequest = await rn.requestCoreService.getCurrentNumRequest();
         createRequest().catch((error) => {
             console.log(error);

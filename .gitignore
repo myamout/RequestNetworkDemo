@@ -5,6 +5,7 @@
 
 # dependencies
 /node_modules
+/examples/SimpleP2P/node_modules
 
 # IDEs and editors
 /.idea
