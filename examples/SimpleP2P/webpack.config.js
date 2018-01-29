@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        bundle: ['babel-polyfill', './src/main']
+        bundle: ['babel-polyfill', './frontend_src/main']
     },
     output: {
         filename: '[name].js',

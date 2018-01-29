@@ -6,6 +6,9 @@
 # dependencies
 /node_modules
 /examples/SimpleP2P/node_modules
+/examples/SimpleP2P/pkg/
+/examples/SimpleP2P/src/
+/examples/SimpleP2P/bin/
 
 # IDEs and editors
 /.idea
