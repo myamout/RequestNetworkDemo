@@ -3,16 +3,20 @@ import ViewRequests from './view-requests.jsx';
 
 import RequestNetwork from '@requestnetwork/request-network.js';
 import Web3 from 'web3';
+import Eth from 'ethjs';
 
 export default class CreateRequest extends React.Component {
 
     constructor() {
         super();
         this.state = {
+            payeeAddress: '',
             payerAddress: '',
             amountRequired: 0,
-            reason: ''
+            reason: '',
         };
+        window.requestnetwork = new RequestNetwork(window.web3.currentProvider, 45);
+        window.ethereumjs = new Eth(window.web3.currentProvider);
         this.handleAddressChange = this.handleAddressChange.bind(this);
         this.handleAmountChange = this.handleAmountChange.bind(this);
         this.handleReasonChange = this.handleReasonChange.bind(this);
@@ -49,6 +53,10 @@ export default class CreateRequest extends React.Component {
         });
     }
 
+    async printTestRPCAccount() {
+        console.log(window.requestnetwork);
+    }
+
     render() {
         return (
             <div> 
@@ -58,6 +66,7 @@ export default class CreateRequest extends React.Component {
                     <input type="number" value={this.state.amountRequired} onChange={this.handleAmountChange} placeholder="Amount of ETH to Send" />
                     <input type="text" value={this.state.reason} onChange={this.handleReasonChange} placeholder="Reason for request" />
                     <button type="button" onClick={this.handleSubmit}> Create Request </button>
+                    <button type="button" onClick={this.printTestRPCAccount}> Test Web3 </button>
                 </div>
                 <div className="row center">
                     <ViewRequests />

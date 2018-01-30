@@ -17,9 +17,8 @@
 # Languages and Frameworks/Libraries Used
 ## Frontend
 - Request Network JS Library
-- Lit-html
-- Lit-html-element
-- Web3
+- React
+- Ethjs
 - MetaMask
 ## Server
 - Go with the Echo Framework
