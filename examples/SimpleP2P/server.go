@@ -10,6 +10,7 @@ func main() {
 	e.Use(middleware.Recover())
 	e.Use(middleware.Logger())
 	e.Static("/js", "./dist/js")
+	e.Static("/polyfill", "./node_modules/@webcomponents/webcomponentsjs")
 	e.File("/", "dist/index.html")
 	e.Logger.Fatal(e.Start(":3001"))
 }

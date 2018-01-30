@@ -5,22 +5,26 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "main": "node ./dist/bundle.js"
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@requestnetwork/request-network.js": "^0.1.7",
-    "lit-html": "^0.8.0",
-    "lit-html-element": "^0.9.0",
-    "web3": "^1.0.0-beta.26"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-modal": "^3.1.11",
+    "web3": "^1.0.0-beta.26",
+    "wingcss": "^1.0.0-beta"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.9",
+    "style-loader": "^0.20.1",
     "webpack": "^3.10.0"
   }
 }

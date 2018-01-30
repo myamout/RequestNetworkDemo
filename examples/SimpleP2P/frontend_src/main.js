@@ -3,5 +3,5 @@
 
 // const rn = new RequestNetwork('http://localhost:8545', 45);
 // const web3 = rn.requestEthereumService.web3Single.web3;
-
-
+import Index from './components/index.jsx';
+require('../node_modules/wingcss/dist/wing.min.css');
