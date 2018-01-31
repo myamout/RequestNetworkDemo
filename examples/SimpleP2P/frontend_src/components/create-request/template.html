@@ -1,0 +1,16 @@
+<postcss src="../shared_styles/style.postcss"></postcss>
+<div class="row">
+    <div class="col-6 center">
+        <h1> Create A Request </h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-6 center">
+            <form>
+                    <input type="text" placeholder="Address To Request From" value="{{payerAddress::input}}">
+                    <input type="text" placeholder="Reason For Request" value="{{reason::input}}">
+                    <input type="number" placeholder="Amount of ETH" value="{{amountRequired::input}}">
+                    <button type="button" on-click="createRequest"> Create Request </button>
+            </form>
+    </div>
+</div>

@@ -9,6 +9,9 @@ module.exports = {
         path: __dirname + '/dist/js'
     },
     module: {
-        
+        rules: [{
+            test: /\.html$/,
+            use: ['text-loader', 'postcss-html-loader']
+        }]
     },
 };

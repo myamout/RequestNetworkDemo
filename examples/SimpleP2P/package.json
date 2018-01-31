@@ -10,17 +10,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@polymer/polymer": "^3.0.0-pre.7",
     "@requestnetwork/request-network.js": "^0.1.7",
     "@webcomponents/webcomponentsjs": "^1.1.0",
     "ethjs": "^0.3.3",
     "json-loader": "^0.5.7",
-    "lit-html": "^0.8.0",
-    "lit-html-element": "^0.9.1",
     "wingcss": "^1.0.0-beta"
   },
   "devDependencies": {
     "css-loader": "^0.28.9",
+    "postcss-html-loader": "^1.1.0",
     "style-loader": "^0.20.1",
+    "text-loader": "0.0.1",
     "webpack": "^3.10.0"
   }
 }
