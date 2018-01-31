@@ -7,21 +7,29 @@
 </div>
 <h2> Requests Owed By You </h2>
 <div class="cards">
-    <dom-repeat items="[[requestsAsPayer]]">
-        <template>
-               
+    <dom-repeat items="{{requestAsPayer}}">
+        <template is="dom-repeat">
+            <div class="card">
+                <span> Pay To: {{item.payee}} </span> <br>
+                <span> Reason: {{item.reason}} </span> <br>
+                <span> Amount Charged: {{item.expectedAmount}} </span> <br>
+                <button type="button" on-click="payRequest"> Accept and Pay Request </button>
+            </div>
         </template>
     </dom-repeat>
 </div>
 <h2> Requests Created By You </h2>
-<dom-repeat items="[[requestsAsPayee]]">
-    <template>
-        <div class="row center">
-            <div class="col-6 center">
-                <span>[[item.requestId]]</span>
-                <button type="button" on-click="testEvent"> Cancel Request </button>
+<button type="button" on-click="getRequests"> Load Requests </button>
+<div class="cards">
+    <dom-repeat items="{{requestsAsPayee}}">
+        <template is="dom-repeat">
+            <div class="card">
+                <span> Charged: {{item.payer}} </span> <br>
+                <span> Reason: {{item.reason}} </span> <br>
+                <span> Amount Charged: {{item.expectedAmount}} </span> <br>
+                <button type="button" on-click="cancelRequest"> Cancel Request </button>
             </div>
-        </div>
-    </template>
-</dom-repeat>
+        </template>
+    </dom-repeat>
+</div>
 </div>

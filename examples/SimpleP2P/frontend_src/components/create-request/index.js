@@ -38,7 +38,7 @@ export class CreateRequest extends Element {
     async loadBlockchainVars() {
         try {
             const ethereumjs = new Eth(window.web3.currentProvider);
-            const requestNetwork = new RequestNetwork(window.web3.currentProvider, 45);
+            const requestNetwork = new RequestNetwork(window.web3.currentProvider, 46);
             let accounts = await ethereumjs.accounts();
             this.payeeAddress = accounts[0];
             this.rn = requestNetwork;
