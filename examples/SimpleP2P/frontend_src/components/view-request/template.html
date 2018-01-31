@@ -1,6 +1,27 @@
-<postcss src="style.postcss"></postcss>
+<postcss src="../shared_styles/style.postcss"></postcss>
 <div>
-    <div class="test">
-        <h1> [[testVar]] </h1>
+    <div class="row center">
+    <div class="col-6 center">
+        <h1> View Your Active Requests </h1>
     </div>
+</div>
+<h2> Requests Owed By You </h2>
+<div class="cards">
+    <dom-repeat items="[[requestsAsPayer]]">
+        <template>
+               
+        </template>
+    </dom-repeat>
+</div>
+<h2> Requests Created By You </h2>
+<dom-repeat items="[[requestsAsPayee]]">
+    <template>
+        <div class="row center">
+            <div class="col-6 center">
+                <span>[[item.requestId]]</span>
+                <button type="button" on-click="testEvent"> Cancel Request </button>
+            </div>
+        </div>
+    </template>
+</dom-repeat>
 </div>
