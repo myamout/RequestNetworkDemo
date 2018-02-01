@@ -22,21 +22,22 @@ export class ViewRequests extends Element {
 
     async getRequests() {
         try {
-            this.requestsAsPayee = [];
-            this.requestsAsPayer = [];
             const requests = await this.rn.requestCoreService.getRequestsByAddress(this.payerAddress);
             let payeeArray = [];
             let payerArray = [];
             for (let req of requests.asPayee) {
                 let requestObject = {};
+                console.log(req);
                 try {
                     let data = await this.rn.requestEthereumService.getRequest(req.requestId);
-                    requestObject.payee = data.payee;
-                    requestObject.payer = data.payer;
-                    requestObject.reason = data.data.data.reason;
-                    requestObject.expectedAmount = data.expectedAmount.words[0];
-                    requestObject.requestId = data.requestId;
-                    payeeArray.push(requestObject);
+                    if (data.state === 0) {
+                        requestObject.payee = data.payee;
+                        requestObject.payer = data.payer;
+                        requestObject.reason = data.data.data.reason;
+                        requestObject.expectedAmount = data.expectedAmount.words[0];
+                        requestObject.requestId = data.requestId;
+                        payeeArray.push(requestObject);
+                    }
                 } catch (error) {
                     console.error(error);
                 }
@@ -63,7 +64,40 @@ export class ViewRequests extends Element {
     }
 
     async cancelRequest(event) {
-        console.log(event);
+        console.log(event.model.item);
+    }
+
+    // async acceptRequest(event) {
+    //     try {
+    //         console.log('Accepting Request Now...');
+    //         const result = await this.rn.requestEthereumService.accept(
+    //             event.model.item.requestId,
+    //             {from: this.payerAddress}
+    //         ).on('broadcasted', (data) => {
+    //             console.log(`Tx Hash Accept Action: ${ data.transaction.hash }`);
+    //         });
+    //         console.log(`Request ID: ${ event.model.item.requestId } has been accepted...`);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+
+    async payRequest(event) {
+        const requestObject = event.model.item;
+        try {
+            const result = await this.rn.requestEthereumService.paymentAction(
+                requestObject.requestId,
+                Eth.toWei(requestObject.expectedAmount, 'ether'),
+                0,
+                {from: this.payerAddress}
+            ).on('broadcasted', (data) => {
+                console.log(`Tx Hash Payment Action: ${ data.transaction.hash }`);
+            });
+            console.log(result);
+            console.log(`Request ID: ${ requestObject.requestId } has been paid...`);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     async loadBlockchainVars() {

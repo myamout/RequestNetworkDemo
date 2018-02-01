@@ -7,19 +7,19 @@
 </div>
 <h2> Requests Owed By You </h2>
 <div class="cards">
-    <dom-repeat items="{{requestAsPayer}}">
+    <dom-repeat items="{{requestsAsPayer}}">
         <template is="dom-repeat">
             <div class="card">
                 <span> Pay To: {{item.payee}} </span> <br>
                 <span> Reason: {{item.reason}} </span> <br>
                 <span> Amount Charged: {{item.expectedAmount}} </span> <br>
-                <button type="button" on-click="payRequest"> Accept and Pay Request </button>
+                <button type="button" on-click="payRequest"> Pay Request </button>
             </div>
         </template>
     </dom-repeat>
 </div>
 <h2> Requests Created By You </h2>
-<button type="button" on-click="getRequests"> Load Requests </button>
+<button type="button" on-click="testFunc"> Load Requests </button>
 <div class="cards">
     <dom-repeat items="{{requestsAsPayee}}">
         <template is="dom-repeat">
