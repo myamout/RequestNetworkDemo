@@ -2,19 +2,36 @@
 Demo using simple node scripts to run the Request Network JS Library
 * Forked from the Request Team's JS Library repository on Github
 
-# Installation
-- Run `npm i` in the root directory
-- Run `npm i -g ganache-cli` to get the Ganache Testrpc to run a local test         
-    blockchain
+## Prior Dependencies
+To get everything up and running you're going to need Node and NPM. Installations differ between operating systems,
+though if you're on MacOS I reccommend Homebrew which can be found here <https://brew.sh/>
 
-# Running Testrpc
-- Run `npm run ganache` to start up the Testrpc
+## Ganache CLI and MetaMask
+This demo focuses on running the example projects on the Ganache CLI and using MetaMask in the browser. To
+install MetaMask go here <https://metamask.io/>. To install the Ganache CLI run `npm i -g ganache-cli`. This will
+install the package globally across NPM so you can use it within multiple projects.
 
-# Deploying Contracts
-- Run `npm run testdeploy` to deploy the Request Network smart contracts to the Testrpc. Remember to run this from another terminal window.
+## Installing dependencies
+- Within the root directory run `npm i`, this will install everything with the root `package.json` file.
 
-# Running Node Scripts
-Run `node main.js` to execute the provide Node.js script. This script will send a Request from one Testrpc account to another, accept the request, and then pay the request. This all happens in sequential order and demonstrates how one might set up these functions in a web application.
+## Running Ganache
+- Run `npm run ganache` (this npm script can be found inside the `package.json` file)
 
-# Examples
-Browse the example folders for some example projects. Make sure to start up Ganache and deploy the contracts before trying out the examples
+## Running Smart Contract Tests
+- This can be skipped but testing scripts are provided if you'd like to test the smart contracts
+- Run `npm run test`
+
+## Deploying The Contracts
+- The Request Team has made some scripts that will go ahead and deploy all of the necessary Request contracts we will use
+    to Ganache. Recently the team released an NPM module that holds all of the smart contract artifacts, that can be found here <https://github.com/RequestNetwork/requestNetwork/tree/master/packages/requestNetworkArtifacts> if you'd like to
+    create your own migrations script, however for this Demo I'll be using the premade ones for ease of use.
+- Run `npm run testdeploy`
+
+## Connecting to MetaMask
+- After running `npm run ganache` you should see an output: `candy maple cake sugar pudding cream honey rich smooth crumble     sweet treat`. Open the MetaMask extension, open the dropdown menu on the top left, and select `Localhost 8545`. Then 
+    click restore from a seed. Copy and paste the long phrase from above and you should be good to go.
+
+## Example Apps
+The example applications can be found in the `examples` folder. Note that before running the example apps
+you'll need to run Ganache and deploy the contracts first.
+- SimpleP2P application: Create and pay requests. View open requests created by you or ones that you owe.

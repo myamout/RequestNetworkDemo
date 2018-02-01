@@ -5,6 +5,10 @@ import template from './template.html';
 
 export class CreateRequest extends Element {
 
+    /*
+    *   Similar to state variables in React
+    *   These hold the class wide variables we'll need for the project
+    */
     static get properties() {
         return {
             payerAddress: { type: String },
@@ -17,6 +21,13 @@ export class CreateRequest extends Element {
         };
     }
 
+    /*
+    *   Creates a Request.
+    *   createRequestAsPayee function takes in:
+    *   Address you're charging, amount you want to charge, reason of charge (this needs to be in JSON format),
+    *   Extension conract, extension parameters, and options. Options can include gas, numberOfConfirmations, but at
+    *   the minimum needs the from address.
+    */
     async createRequest() {
         try {
             const result = await this.rn.requestEthereumService.createRequestAsPayee(
@@ -35,6 +46,10 @@ export class CreateRequest extends Element {
         }
     }
 
+    /*
+    *   Set our Eth variable
+    *   Set our Request Network variable
+    */
     async loadBlockchainVars() {
         try {
             const ethereumjs = new Eth(window.web3.currentProvider);
@@ -53,6 +68,9 @@ export class CreateRequest extends Element {
         this.loadBlockchainVars();
     }
 
+    /*
+    *   Renders out the template.html file within this folder
+    */
     static get template() {
         return template;
     }

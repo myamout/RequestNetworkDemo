@@ -1,3 +1,8 @@
+/*
+*   Polymer related documentation can be found in the create-request folder.
+*   Documentation here will focus on the Request Library functions
+*/ 
+
 import Eth from 'ethjs';
 import RequestNetwork from '@requestnetwork/request-network.js';
 import { Element } from '@polymer/polymer/polymer-element.js';
@@ -20,16 +25,25 @@ export class ViewRequests extends Element {
         return template;
     }
 
+    /*
+    *   This function grabs all of the open requests for the current address in Metamask
+    *   We will grab all the requests the user has created, owes, and display them accordingly
+    */
     async getRequests() {
         try {
+            // Returns object with two arrays, requests as Payee and as Payer
             const requests = await this.rn.requestCoreService.getRequestsByAddress(this.payerAddress);
             let payeeArray = [];
             let payerArray = [];
+            // Both for loops go through each array to grab all of the needed information
+            // from each request. (getRequestsByAddress function just returns the requestId)
+            // the getRequest function returns a lot more detail.
             for (let req of requests.asPayee) {
                 let requestObject = {};
-                console.log(req);
                 try {
                     let data = await this.rn.requestEthereumService.getRequest(req.requestId);
+                    // We only want to store requests in the created state.
+                    // Potentially a future dashboard can show cancelled and paid requests as well
                     if (data.state === 0) {
                         requestObject.payee = data.payee;
                         requestObject.payer = data.payer;
@@ -46,12 +60,14 @@ export class ViewRequests extends Element {
                 let requestObject = {};
                 try {
                     let data = await this.rn.requestEthereumService.getRequest(req.requestId);
-                    requestObject.payee = data.payee;
-                    requestObject.payer = data.payer;
-                    requestObject.reason = data.data.data.reason;
-                    requestObject.expectedAmount = data.expectedAmount.words[0];
-                    requestObject.requestId = data.requestId;
-                    payerArray.push(requestObject);
+                    if (data.state === 0) {
+                        requestObject.payee = data.payee;
+                        requestObject.payer = data.payer;
+                        requestObject.reason = data.data.data.reason;
+                        requestObject.expectedAmount = data.expectedAmount.words[0];
+                        requestObject.requestId = data.requestId;
+                        payerArray.push(requestObject);
+                    }
                 } catch (error) {
                     console.error(error);
                 }
@@ -63,25 +79,34 @@ export class ViewRequests extends Element {
         }
     }
 
+    /*
+    *   Function will cancel a request.
+    *   Cancel function just takes in the requestId
+    */
     async cancelRequest(event) {
-        console.log(event.model.item);
+        try {
+            let requestObject = event.model.item;
+            console.log(`Canceling Request ID: ${ requestObject.requestId }...`);
+            this.rn.requestEthereumService.cancel(
+                requestObject.requestId,
+                {from: this.payerAddress}
+            ).on('broadcasted', (data) => {
+                console.log(`Tx Hash: ${ data.transaction.hash }...`);
+            });
+            this.getRequests();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    // async acceptRequest(event) {
-    //     try {
-    //         console.log('Accepting Request Now...');
-    //         const result = await this.rn.requestEthereumService.accept(
-    //             event.model.item.requestId,
-    //             {from: this.payerAddress}
-    //         ).on('broadcasted', (data) => {
-    //             console.log(`Tx Hash Accept Action: ${ data.transaction.hash }`);
-    //         });
-    //         console.log(`Request ID: ${ event.model.item.requestId } has been accepted...`);
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
-
+    /*
+    *   Function pays a request
+    *   Note that if the address calling this function is the "payer" address
+    *   the Request will be automatically accepted saving us a function call and a transaction.
+    *   paymentAction function takes in the: requestId, amount need (this needs to be converted to Wei),
+    *   additional ether to send (this is set to zero), and options. Just like creating a request the options need
+    *   to include at least the from parameter
+    */
     async payRequest(event) {
         const requestObject = event.model.item;
         try {
@@ -95,11 +120,16 @@ export class ViewRequests extends Element {
             });
             console.log(result);
             console.log(`Request ID: ${ requestObject.requestId } has been paid...`);
+            this.getRequests();
         } catch (error) {
             console.error(error);
         }
     }
 
+    /*
+    *   Provides same function as from create-request folder, though
+    *   this function adds obtatining the open requests
+    */
     async loadBlockchainVars() {
         try {
             const ethereumjs = new Eth(window.web3.currentProvider);
