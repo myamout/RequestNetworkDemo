@@ -14,7 +14,8 @@ The backend server for this example was written in Go. I've included the `server
 however the server isn't a crucial part of the application as all of the major functions
 will be transactions on the block chain. I've included two binary files for running the server,
 `server_linux` and `server_macos` each refering to your respective operating system. If you're
-running on Windows the `server_linux` binary might work on Windows Subsystem Linux.
+running on Windows the `server_linux` binary might work on Windows Subsystem Linux. For the server I used
+the Echo Framework which can be found here <https://echo.labstack.com/guide>.
 - Run `./server_'operating system here'`
 - Open your browser and go to <localhost:3001>
 - If you haven't logged into MetaMask do so now.

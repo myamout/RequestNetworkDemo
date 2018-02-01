@@ -9,7 +9,7 @@
 /examples/SimpleP2P/pkg/
 /examples/SimpleP2P/src/
 /examples/SimpleP2P/bin/
-/examples/SimpleP2P/dist/js
+/examples/SimpleP2P/dist/js/
 
 # IDEs and editors
 /.idea
