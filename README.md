@@ -35,3 +35,5 @@ install the package globally across NPM so you can use it within multiple projec
 The example applications can be found in the `examples` folder. Note that before running the example apps
 you'll need to run Ganache and deploy the contracts first.
 - SimpleP2P application: Create and pay requests. View open requests created by you or ones that you owe.
+- Just want to see the library in action? In the root folder run `npm run main` which will run the `main.js` script.
+    The script has some print outs along the way so you can follow what is going on.

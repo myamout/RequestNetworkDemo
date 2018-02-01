@@ -13,7 +13,7 @@ let paymentAmount = '';
 const payRequest = async (requestID) => {
     const result = await rn.requestEthereumService.paymentAction(
         requestID,
-        1500,
+        web3.toWei(50, 'ether'),
         0,
         {from: payer}
     ).on('broadcasted', (data) => {
@@ -43,10 +43,10 @@ const acceptRequest = async (requestID) => {
 };
 
 const createRequest = async () => {
-    paymentAmount = 1500;
+    paymentAmount = 50;
     const result = await rn.requestEthereumService.createRequestAsPayee(
         payer,
-        paymentAmount,
+        Eth,
         '{"reason": "Freelance work"}',
         '',
         [],
